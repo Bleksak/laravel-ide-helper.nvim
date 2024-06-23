@@ -7,6 +7,7 @@ local models = require("laravel-ide-helper.models")
 local config = {
     write_to_models = true,
     save_before_write = true,
+    format_after_gen = true,
 }
 
 ---@class MyModule
@@ -28,6 +29,11 @@ M.generate_models = function(file)
     vim.schedule(function()
         if models.generate_models(M.config.write_to_models, file) then
             vim.cmd("e")
+        end
+    end)
+    vim.schedule(function()
+        if M.config.format_after_gen then
+            vim.lsp.buf.format()
         end
     end)
 end

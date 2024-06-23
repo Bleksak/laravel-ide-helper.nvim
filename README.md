@@ -13,6 +13,7 @@
     opts = {
         write_to_models = true,
         save_before_write = true,
+        format_after_gen = true,
     },
     enabled = function()
         return vim.fn.filereadable("artisan") ~= 0
