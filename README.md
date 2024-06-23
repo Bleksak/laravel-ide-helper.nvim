@@ -11,7 +11,8 @@
 {
     "Bleksak/laravel-ide-helper.nvim",
     opts = {
-        "write_to_models" = true,
+        write_to_models = true,
+        save_before_write = true,
     },
     enabled = function()
         return vim.fn.filereadable("artisan") ~= 0

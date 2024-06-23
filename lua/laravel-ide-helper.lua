@@ -2,9 +2,11 @@
 local models = require("laravel-ide-helper.models")
 
 ---@class Config
----@field write_to_models boolean Your config option
+---@field write_to_models boolean adds -W ide-helper:models command
+---@field save_before_write boolean writes to disk before generating model data (prevents desync between buffer/disk)
 local config = {
     write_to_models = true,
+    save_before_write = true,
 }
 
 ---@class MyModule
@@ -20,9 +22,14 @@ end
 
 ---@param file string?
 M.generate_models = function(file)
-    if models.generate_models(M.config.write_to_models, file) then
-        vim.cmd("e")
+    if M.config.save_before_write then
+        vim.cmd("w")
     end
+    vim.schedule(function()
+        if models.generate_models(M.config.write_to_models, file) then
+            vim.cmd("e")
+        end
+    end)
 end
 
 return M
