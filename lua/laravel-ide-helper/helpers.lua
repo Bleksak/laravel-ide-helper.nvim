@@ -23,9 +23,9 @@ M.model_data = function(model)
         return nil
     end
 
-    local json, _ = pcall(vim.json.decode, content)
+    local status, json = pcall(vim.json.decode, content)
 
-    if not json then
+    if not status then
         return nil
     end
 
