@@ -20,8 +20,9 @@ end
 
 ---@param file string?
 M.generate_models = function(file)
-    models.generate_models(M.config.write_to_models, file)
-    vim.cmd("e")
+    if models.generate_models(M.config.write_to_models, file) then
+        vim.cmd("e")
+    end
 end
 
 return M

@@ -9,7 +9,6 @@ M.run_command = function(command, args)
     end
 
     local full_cmd = command .. " " .. table.concat(args, " ")
-    print(full_cmd)
 
     local handle = io.popen(full_cmd)
 
@@ -17,10 +16,10 @@ M.run_command = function(command, args)
         return nil
     end
 
-    local result = handle:read("a")
+    local content = handle:read("*all")
     handle:close()
 
-    return result
+    return content
 end
 
 return M

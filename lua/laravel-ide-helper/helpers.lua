@@ -12,18 +12,24 @@ M.file_to_model_string = function(file)
 end
 
 M.model_data = function(model)
-    local result = runner.run_command("php", {
+    local content = runner.run_command("php", {
         "artisan",
         "model:show",
         "--json",
         model,
     })
 
-    if result == nil then
+    if content == nil then
         return nil
     end
 
-    return vim.json.decode(result)
+    local json, _ = pcall(vim.json.decode, content)
+
+    if not json then
+        return nil
+    end
+
+    return json
 end
 
 --- @param model_data table

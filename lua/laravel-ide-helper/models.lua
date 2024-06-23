@@ -7,7 +7,6 @@ local runner = require("laravel-ide-helper.runner")
 ---@param write_to_models boolean
 ---@param file string?
 M.generate_models = function(write_to_models, file)
-    print(file)
     local command = "php"
 
     local args = {
@@ -26,7 +25,7 @@ M.generate_models = function(write_to_models, file)
 
         if model_data == nil then
             print("Error: couldn't find model" .. current_model)
-            return
+            return false
         end
 
         local fqn = helpers.model_fqn(model_data)
@@ -36,9 +35,11 @@ M.generate_models = function(write_to_models, file)
     local result = runner.run_command(command, args)
     if not result then
         print("Error: couldn't generate models")
+        return false
     end
 
     print("OK: Model info generated")
+    return true
 end
 
 return M
