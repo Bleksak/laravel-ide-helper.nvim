@@ -4,9 +4,8 @@ local M = {}
 local helpers = require("laravel-ide-helper.helpers")
 local runner = require("laravel-ide-helper.runner")
 
----@param write_to_models boolean
 ---@param file string?
-M.generate_models = function(write_to_models, file)
+M.generate_models = function(file)
     local command = "php"
 
     local args = {
@@ -15,8 +14,10 @@ M.generate_models = function(write_to_models, file)
         "-n",
     }
 
-    if write_to_models then
-        table.insert(args, "-W")
+    local models_args = require("laravel-ide-helper").config.models_args
+
+    for _, arg in ipairs(models_args) do
+        table.insert(args, arg)
     end
 
     if file then
