@@ -2,8 +2,8 @@
 local models = require("laravel-ide-helper.models")
 
 ---@class Config
----@field write_to_models boolean adds -W ide-helper:models command
 ---@field save_before_write boolean writes to disk before generating model data (prevents desync between buffer/disk)
+---@field format_after_gen boolean formats the buffer after generating model data
 local config = {
     save_before_write = true,
     format_after_gen = true,
