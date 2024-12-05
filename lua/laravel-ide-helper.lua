@@ -7,7 +7,7 @@ local models = require("laravel-ide-helper.models")
 local config = {
     save_before_write = true,
     format_after_gen = true,
-    models_args = {}
+    models_args = {},
 }
 
 ---@class MyModule
